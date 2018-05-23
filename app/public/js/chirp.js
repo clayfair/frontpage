@@ -9,6 +9,7 @@ $("#chirp-submit").on("click", function (event) {
     author: $("#author").val().trim(),
     body: $("#chirp-box").val().trim(),
     created_at: moment().format("YYYY-MM-DD HH:mm:ss")
+    
   };
 
   console.log(newChirp);
@@ -21,9 +22,11 @@ $("#chirp-submit").on("click", function (event) {
       var row = $("<div>");
       row.addClass("chirp");
 
-      row.append("<p>" + newChirp.author + " chirped: </p>");
-      row.append("<h2>" + newChirp.body + "</h2>");
-      row.append("<p>At " + moment(newChirp.created_at).format("h:mma on dddd") + "</p>");
+      row.append("<h4>" + newChirp.body + "</h4>");
+      row.append("<p> posted by " + newChirp.author + "</p>");
+      // row.append("<p>At " + moment(newChirp.created_at).format("h:mma on dddd") + "</p>");
+      row.append("<p>" + moment(newChirp.created_at).startOf("h:mma on dddd").fromNow() + "</p>");
+     
 
       $("#chirp-area").prepend(row);
 
@@ -44,10 +47,11 @@ $.get("/api/all", function (data) {
       var row = $("<div>");
       row.addClass("chirp");
       row.attr("id", data[i].id);
-      row.append("<p>" + data[i].author + " chirped.. </p>");
       // row.append("<p> number:" + data[i].id + "</p>");
-      row.append("<p>" + data[i].body + "</p>");
-      row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
+      row.append("<h4>" + data[i].body + "</h4>");
+      row.append("<p> posted by " + data[i].author + "</p>");
+      // row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
+      row.append("<p>" + moment(newChirp.created_at).startOf("h:mma on dddd").fromNow() + "</p>");
 
       $("#chirp-area").prepend(row);
 
